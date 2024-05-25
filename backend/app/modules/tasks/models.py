@@ -1,11 +1,11 @@
 from enum import Enum as PyEnum
 from typing import Optional
 
-from sqlalchemy.sql.sqltypes import String, Enum, DateTime
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.sql.sqltypes import String, Enum, DateTime, Integer
 
-from app.base_class import Base
-from app.modules.users.models import User
+from app.modules.shared.base_class import Base
 
 
 class TaskStatus(str, PyEnum):
@@ -28,8 +28,9 @@ class Task(Base):
     status: Mapped[TaskStatus] = mapped_column(
         Enum(TaskStatus), default=TaskStatus.OPEN
     )
-    type: Mapped[TaskType] = mapped_column(Enum(TaskType))
+    type: Mapped[Optional[TaskType]] = mapped_column(Enum(TaskType))
     due_date: Mapped[DateTime] = mapped_column(DateTime)
-    assignee: Mapped[Optional["User"]] = relationship(
-        back_populates="tasks", passive_deletes=True
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
+    user: Mapped[Optional["User"]] = relationship(
+        "User", back_populates="tasks", passive_deletes=True
     )

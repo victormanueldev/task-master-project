@@ -1,9 +1,10 @@
 from typing import Optional, List
-from sqlalchemy.sql.sqltypes import String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.base_class import Base
-from app.modules.tasks.models import Task
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.sql.sqltypes import String, Integer
+
+from app.modules.shared.base_class import Base
 
 
 class User(Base):
@@ -11,5 +12,9 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(50))
     password: Mapped[str] = mapped_column(String(128))
     tasks: Mapped[Optional[List["Task"]]] = relationship(
-        back_populates="assignee", passive_deletes=True
+        "Task",
+        back_populates="user",
+        passive_deletes=True,
     )
+    role_id: Mapped[int] = mapped_column(Integer, ForeignKey("role.id"))
+    role: Mapped["Role"] = relationship("Role", passive_deletes=True)

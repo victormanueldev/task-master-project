@@ -1,12 +1,10 @@
-from typing import Any
-
-from sqlalchemy.types import DateTime
-from sqlalchemy.sql.functions import now
-from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, Mapped, mapped_column
 from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.sql.functions import now
+from sqlalchemy.types import DateTime
 
 
-class Base(MappedAsDataclass, DeclarativeBase):
+class Base(DeclarativeBase):
     id: Mapped[int] = mapped_column(primary_key=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), default=now())
     updated_at: Mapped[DateTime] = mapped_column(

@@ -8,13 +8,9 @@ class UserSignUp:
         self.auth_service = auth_service
         self.user_repository = user_repository
 
-    def execute(self, user_data: dict) -> dict:
-        if self.auth_service.authenticate(
-            username=user_data.get("email", ""), password=user_data.get("password", "")
-        ):
-            user = self.user_repository.filter_by(
-                field="email", value=user_data.get("email")
-            )
+    def execute(self, email: str, password: str) -> dict:
+        if self.auth_service.authenticate(email, password):
+            user = self.user_repository.filter_by(field="email", value=email)
             return dict(
                 access_token="access_token_generated_str",
                 refresh_token="refresh_token_generated_str",

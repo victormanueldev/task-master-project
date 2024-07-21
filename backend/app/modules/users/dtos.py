@@ -12,10 +12,6 @@ class UserBaseDTO(BaseModel):
     password: Optional[str] = None
 
 
-class UserSignUpDTO(UserBaseDTO):
-    pass
-
-
 class UserLoggedInDTO(BaseModel):
     access_token: str
     refresh_token: str

@@ -6,6 +6,10 @@ click==8.1.7
 distlib==0.3.8
 filelock==3.14.0
 Flask==3.0.3
+Flask-Bcrypt==1.0.1
+Flask-JWT-Extended==4.6.0
+Flask-Pydantic==0.12.0
+Flask-SQLAlchemy==3.1.1
 greenlet==3.0.3
 identify==2.5.36
 itsdangerous==2.2.0
@@ -23,6 +27,8 @@ pycodestyle==2.11.1
 pydantic==2.7.1
 pydantic_core==2.18.2
 pyflakes==3.2.0
+PyJWT==2.8.0
+python-dotenv==1.0.1
 PyYAML==6.0.1
 SQLAlchemy==2.0.30
 typing_extensions==4.11.0

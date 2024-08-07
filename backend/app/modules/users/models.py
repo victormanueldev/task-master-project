@@ -26,5 +26,8 @@ class User(Base):
         return self._password
 
     @password.setter
-    def password(self, password):
-        self._password = bcrypt.generate_password_hash(password)
+    def password(self, password: str):
+        self._password = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    def check_password(self, password: str) -> bool:
+        return bcrypt.check_password_hash(self.password, password)

@@ -1,4 +1,6 @@
+alembic==1.13.2
 annotated-types==0.7.0
+bcrypt==4.2.0
 black==24.4.2
 blinker==1.8.2
 cfgv==3.4.0

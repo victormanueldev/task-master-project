@@ -1,11 +1,11 @@
 from typing import Optional
 
-from pydantic import BaseModel
-
-from app.modules.users.models import User
+from pydantic import BaseModel, ConfigDict
 
 
 class UserBaseDTO(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: Optional[int]
     name: str
     email: str
@@ -15,4 +15,16 @@ class UserBaseDTO(BaseModel):
 class UserLoggedInDTO(BaseModel):
     access_token: str
     refresh_token: str
-    user: User
+
+
+class UserSignUpDTO(BaseModel):
+    email: str
+    password: str
+    name: str
+    role_id: int
+
+
+class UserGetMeDTO(BaseModel):
+    email: str
+    name: str
+    role_id: int

@@ -22,5 +22,5 @@ class CRUDBase(Generic[ModelType]):
     def delete(self, obj: ModelType) -> ModelType:
         pass
 
-    def filter_by(self, field: str, value: Any) -> ModelType:
+    def filter_by(self, field: str, value: Any) -> List[ModelType]:
         pass

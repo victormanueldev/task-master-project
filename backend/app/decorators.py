@@ -8,8 +8,12 @@ from app.errors import UnprocessableEntityError, UnauthorizedError
 
 
 def login_required(f):
+    """
+    Decorate routes to require login.
+    """
+
     @wraps(f)
-    def decorated_function(*args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
             if g.user is None:
                 return f(*args, **kwargs)
@@ -23,10 +27,15 @@ def login_required(f):
                 },
             )
 
-    return decorated_function
+    return wrapper
 
 
 def serialize_response(schema: Type[BaseModel]) -> Callable:
+    """
+    Decorate routes to serialize response.
+    Dumps the base model in parameters and creates the JSON repr
+    """
+
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(*args, **kwargs):

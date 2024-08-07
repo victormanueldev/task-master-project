@@ -4,6 +4,12 @@ ModelType = TypeVar("ModelType")
 
 
 class CRUDBase(Generic[ModelType]):
+    """
+    This class is a generic class that will have the structure that every model
+    should have to inherit from. This will mainly be inherited from Ports classes in order
+    to define which model this will manage.
+    """
+
     def __init__(self, model: Type[ModelType]):
         self.model = model
 

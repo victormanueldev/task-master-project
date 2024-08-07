@@ -5,6 +5,12 @@ from app.modules.shared.error_schema import Status, ErrorSchema
 
 
 class ErrorBase(Exception):
+    """
+    This class is responsible to handle all errors presented in the API.
+    In the handler method, we serialize the errors and respond the request with
+    the expected format and the corresponding status code.
+    """
+
     def __init__(
         self, status: str, status_code: int, message: str, details: dict
     ) -> None:
@@ -14,6 +20,10 @@ class ErrorBase(Exception):
         self.details = details
 
     def handler(self) -> Response:
+        """
+        Serialize the error and respond the request with the corresponding
+        flask response format.
+        """
         try:
             error_json = ErrorSchema(
                 status=self.status,
@@ -23,6 +33,7 @@ class ErrorBase(Exception):
             ).model_dump_json()
             return Response(error_json, self.status_code)
         except ValidationError as e:
+            # In case of error in the error serialization
             return Response(
                 dict(
                     status=Status.UNPROCESSABLE.name,
@@ -37,6 +48,7 @@ class ErrorBase(Exception):
                 422,
             )
         except Exception as e:
+            # In the case of unexpected issue in the error serialization
             return Response(
                 dict(
                     status=Status.INTERNAL_ERROR.name,

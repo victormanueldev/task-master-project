@@ -13,10 +13,16 @@ from app.modules.tasks.models import Task
 from app.modules.users.adapters import UserRepositoryAdapter
 from app.modules.users.models import User
 
+# The context will store the classes to be injected into views
 Context = namedtuple("Context", ["user_repository", "auth_service"])
 
 
 def create_context() -> namedtuple:
+    """
+    This initializes the classes that have a dependency on each other,
+    mainly instantiate the ports and adapters, those dependencies will
+    be stored into the Context
+    """
     global context
     Task()
     Role()
@@ -29,7 +35,8 @@ def create_context() -> namedtuple:
     return context, __app
 
 
-def create_app():
+def create_app() -> Flask:
+    """The application factory"""
     global app
     dictConfig(
         {

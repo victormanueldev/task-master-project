@@ -15,7 +15,7 @@ auth_service = context.auth_service
 
 @users.route("/signup", methods=["POST"])
 @validate()
-@serialize_response(UserSignUpDTO)
+@serialize_response(UserGetMeDTO)
 def signup(body: UserSignUpDTO) -> Tuple[Any, int]:
     res = UserSignIn(user_repository).execute(
         name=body.name, email=body.email, password=body.password, role_id=body.role_id

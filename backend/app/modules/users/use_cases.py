@@ -5,6 +5,9 @@ from app.modules.users.ports import UserRepositoryPort
 
 
 class UserSignUp:
+    """
+    This class will have the signup use case and define the execute method to be used in views
+    """
 
     def __init__(self, auth_service: AuthService, user_repository: UserRepositoryPort):
         self.auth_service = auth_service

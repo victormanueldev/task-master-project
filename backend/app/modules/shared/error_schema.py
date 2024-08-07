@@ -5,6 +5,10 @@ from pydantic import BaseModel
 
 
 class Status(int, Enum):
+    """
+    Custom types of errors with respective status code
+    """
+
     CANCELLED = 499
     INTERNAL_ERROR = 500
     INVALID_ARGUMENT = 400
